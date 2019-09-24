@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mc_login/common/constants/keys.dart';
+import 'package:mc_login/common/validator/validator.dart';
 import 'package:mc_login/redux/base/app_state.dart';
 import 'package:mc_login/ui/login/login_vm.dart';
 import 'package:redux/redux.dart';
@@ -40,25 +42,36 @@ class _LoginPageState extends State<LoginPage> {
   _validateFields(LoginViewModel vm) {
     bool validated = true;
     var email = _emailController.text;
-//    if (Validator.isEmpty(phone)) {
-//      setState(() => _phoneError = 'FIELD CAN\'T BE EMPTY');
-//      validated = false;
-//    }
-//    if (!Validator.isEmpty(phone) && !Validator.isPhoneCorrect(phone)) {
-//      setState(() => _phoneError = 'PHONE NUMBER IS INCORRECT');
-//      validated = false;
-//    }
+    if (Validator.isEmpty(email)) {
+      setState(() => _emailError = 'EMAIL CAN\'T BE EMPTY');
+      validated = false;
+    }
+    if (!Validator.isEmpty(email) && !Validator.isEmailCorrect(email)) {
+      setState(() => _emailError = 'EMAIL IS INCORRECT');
+      validated = false;
+    }
+
+    if(validated) {
+      setState(() {
+        _emailError = null;
+      });
+    }
+
     final password = _passwordController.text;
-//    if (Validator.isEmpty(password)) {
-//      setState(() => _passwordError = 'FIELD CAN\'T BE EMPTY');
-//      validated = false;
-//    }
-//    if (!Validator.isEmpty(password) &&
-//        !Validator.isPasswordCorrect(password)) {
-//      setState(() => _passwordError = 'PASSWORD IS INCORRECT');
-//      validated = false;
-//    }
+    if (Validator.isEmpty(password)) {
+      setState(() => _passwordError = 'PASSWORD CAN\'T BE EMPTY');
+      validated = false;
+    }
+    if (!Validator.isEmpty(password) &&
+        !Validator.isPasswordCorrect(password)) {
+      setState(() => _passwordError = 'PASSWORD IS INCORRECT');
+      validated = false;
+    }
+
     if (validated) {
+      _emailError = null;
+      _passwordError = null;
+
       vm.login(email, password);
     }
   }
@@ -73,18 +86,18 @@ class _LoginPageState extends State<LoginPage> {
 
   _onWillChange(LoginViewModel vm) {
     if (vm.isDefault) return;
-//    if (vm.user == null) return;
-//    vm.resetState();
-//    Navigator.of(context).pushNamedAndRemoveUntil(
-//      AppRoutes.main_page,
-//          (Route<dynamic> route) => false,
-//    );
+    if (vm.user == null) return;
+    vm.resetState();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.main_page,
+          (Route<dynamic> route) => false,
+    );
   }
 
   _onDidChange(LoginViewModel vm) {
     if (vm.isDefault) return;
     if (vm.error == null) return;
-//    vm.resetState();
+    vm.resetState();
     String message;
     if (vm.error is PlatformException) {
       PlatformException pe = vm.error;
@@ -98,10 +111,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _showRegisterPage() {
-//    Navigator.of(context).pushNamedAndRemoveUntil(
-//      AppRoutes.register_page,
-//          (Route<dynamic> route) => false,
-//    );
+    Navigator.of(context).pushNamed(
+      AppRoutes.register_page,
+    );
   }
 
   @override
@@ -195,6 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                                         color: Color(0xff53cde4),
                                       ),
                                     ),
+                                    errorText: _emailError,
                                   ),
                                 ),
                                 TextField(
@@ -202,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                                   focusNode: _passwordFocusNode,
                                   maxLines: 1,
                                   style: TextStyle(fontSize: 18),
-                                  obscureText: _passwordVisibility,
+                                  obscureText: !_passwordVisibility,
                                   decoration: InputDecoration(
                                     suffix: GestureDetector(
                                       child: Icon(
@@ -267,7 +280,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        print("Sign Up");
+                                        _showRegisterPage();
                                       },
                                       child: Text(
                                         "Sign Up",

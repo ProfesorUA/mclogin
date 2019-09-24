@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mc_login/redux/base/app_state.dart';
 import 'package:mc_login/redux/login/login_actions.dart';
@@ -8,22 +9,22 @@ import 'package:redux/redux.dart';
 @immutable
 class LoginViewModel extends Equatable {
   final bool loading;
-//  final User user;
+  final FirebaseUser user;
   final Object error;
   final Function(String, String) login;
   final bool isDefault;
-//  final Function() resetState;
+  final Function() resetState;
 
   LoginViewModel({
     this.loading,
-//    this.user,
+    this.user,
     this.error,
     this.login,
     this.isDefault,
-//    this.resetState,
+    this.resetState,
   }) : super([
     loading,
-//    user,
+    user,
     error,
     isDefault,
   ]);
@@ -31,11 +32,11 @@ class LoginViewModel extends Equatable {
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
       loading: store.state.loginState.isLoading,
-//      user: store.state.loginState.user,
+      user: store.state.loginState.user,
       error: store.state.loginState.error,
       login: (phone, password) => store.dispatch(Login(phone, password)),
       isDefault: store.state.loginState.isDefault(),
-//      resetState: () => store.dispatch(LpResetState()),
+      resetState: () => store.dispatch(ResetState()),
     );
   }
 }

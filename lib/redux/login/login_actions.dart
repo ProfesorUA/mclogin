@@ -18,3 +18,5 @@ class ShowError {
 
   ShowError(this.error);
 }
+
+class ResetState { }

@@ -5,6 +5,8 @@ import 'package:redux/redux.dart';
 Reducer<LoginState> loginReducer = combineReducers<LoginState>([
   TypedReducer<LoginState, Login>(_login),
   TypedReducer<LoginState, ShowError>(_showError),
+  TypedReducer<LoginState, ShowResult>(_showResult),
+  TypedReducer<LoginState, ResetState>(_resetState),
 ]);
 
 LoginState _login(LoginState state, Login action) {
@@ -16,4 +18,16 @@ LoginState _showError(LoginState state, ShowError action) {
     isLoading: false,
     error: action.error
   );
+}
+
+LoginState _showResult(LoginState state, ShowResult action) {
+  return state.copyWith(
+    isLoading: false,
+    user: action.user,
+    error: null,
+  );
+}
+
+LoginState _resetState(LoginState state, ResetState action) {
+  return LoginState.initial();
 }
