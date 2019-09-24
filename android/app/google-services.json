@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "655395477836",
+    "firebase_url": "https://influential-rex-160210.firebaseio.com",
+    "project_id": "influential-rex-160210",
+    "storage_bucket": "influential-rex-160210.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655395477836:android:1af2f5f2bdd2bf054c57e9",
+        "android_client_info": {
+          "package_name": "mclogin.pettersonapps.com.mc_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655395477836-kicuk2fjgfiplo2t2kmlnci8kttj9pm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKdJmsfFM1LZGWzu4KmNALB8fPCEM3eIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655395477836-kicuk2fjgfiplo2t2kmlnci8kttj9pm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

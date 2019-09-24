@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>655395477836-sa8md3l2qaqcnqbf1l7simqepopv5glm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.655395477836-sa8md3l2qaqcnqbf1l7simqepopv5glm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAxdN_cp_q2L4FC48MMkjcNx4JKgrJwZW0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>655395477836</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>mclogin.pettersonapps.com.mcLogin</string>
+	<key>PROJECT_ID</key>
+	<string>influential-rex-160210</string>
+	<key>STORAGE_BUCKET</key>
+	<string>influential-rex-160210.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:655395477836:ios:3d6eaa8c7ef7b9494c57e9</string>
+	<key>DATABASE_URL</key>
+	<string>https://influential-rex-160210.firebaseio.com</string>
+</dict>
+</plist>
