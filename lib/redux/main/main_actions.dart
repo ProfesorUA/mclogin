@@ -1,0 +1,3 @@
+class Logout {}
+
+class CloseScreen {}

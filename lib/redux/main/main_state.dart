@@ -3,42 +3,42 @@ import 'package:mc_login/data/models/User.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class LoginState extends Equatable {
+class MainState extends Equatable {
   final bool isLoading;
-  final User user;
+  final bool shouldCloseScreen;
   final Object error;
 
-  LoginState({
+  MainState({
     this.isLoading,
-    this.user,
+    this.shouldCloseScreen,
     this.error,
   }) : super([
     isLoading,
-    user,
+    shouldCloseScreen,
     error,
   ]);
 
-  factory LoginState.initial() {
-    return LoginState(
+  factory MainState.initial() {
+    return MainState(
       isLoading: false,
-      user: null,
+      shouldCloseScreen: false,
       error: null,
     );
   }
 
-  LoginState copyWith({
+  MainState copyWith({
     bool isLoading,
-    User user,
+    bool shouldCloseScreen,
     Object error,
   }) {
-    return LoginState(
+    return MainState(
       isLoading: isLoading,
-      user: user,
+      shouldCloseScreen: shouldCloseScreen,
       error: error,
     );
   }
 
   bool isDefault() {
-    return isLoading == false && user == null && error == null;
+    return isLoading == false && shouldCloseScreen == false && error == null;
   }
 }

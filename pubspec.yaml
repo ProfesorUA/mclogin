@@ -23,7 +23,6 @@ dependencies:
   redux: ^3.0.0
   flutter_redux: ^0.5.3
   shared_preferences: ^0.5.3+4
-  dio: ^2.1.13
   equatable: ^0.2.6
   firebase_auth: ^0.14.0+5
 

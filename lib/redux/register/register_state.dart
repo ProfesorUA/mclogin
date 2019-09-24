@@ -1,14 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mc_login/data/models/User.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class LoginState extends Equatable {
+class RegisterState extends Equatable {
   final bool isLoading;
   final User user;
   final Object error;
 
-  LoginState({
+  RegisterState({
     this.isLoading,
     this.user,
     this.error,
@@ -18,20 +19,20 @@ class LoginState extends Equatable {
     error,
   ]);
 
-  factory LoginState.initial() {
-    return LoginState(
+  factory RegisterState.initial() {
+    return RegisterState(
       isLoading: false,
       user: null,
       error: null,
     );
   }
 
-  LoginState copyWith({
+  RegisterState copyWith({
     bool isLoading,
     User user,
     Object error,
   }) {
-    return LoginState(
+    return RegisterState(
       isLoading: isLoading,
       user: user,
       error: error,

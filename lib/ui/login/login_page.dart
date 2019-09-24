@@ -91,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.of(context).pushNamedAndRemoveUntil(
       AppRoutes.main_page,
           (Route<dynamic> route) => false,
+      arguments: vm.user,
     );
   }
 

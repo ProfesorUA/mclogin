@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mc_login/data/models/User.dart';
 
 class Login {
   final String email;
@@ -8,7 +8,7 @@ class Login {
 }
 
 class ShowResult {
-  final FirebaseUser user;
+  final User user;
 
   ShowResult(this.user);
 }

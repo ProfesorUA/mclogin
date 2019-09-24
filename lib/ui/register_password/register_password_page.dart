@@ -1,51 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mc_login/common/constants/keys.dart';
 import 'package:mc_login/common/validator/validator.dart';
 import 'package:mc_login/redux/base/app_state.dart';
-import 'package:mc_login/ui/register_email/register_email_vm.dart';
-import 'package:mc_login/ui/register_password/register_password_page.dart';
+import 'package:mc_login/ui/register_password/register_password_vm.dart';
 import 'package:redux/redux.dart';
 
-class RegisterEmailPage extends StatefulWidget {
-  @override
-  _RegisterEmailPageState createState() => _RegisterEmailPageState();
+class RegisterPasswordPageArguments {
+  final String email;
+
+  RegisterPasswordPageArguments({this.email});
 }
 
-class _RegisterEmailPageState extends State<RegisterEmailPage> {
+class RegisterPasswordPage extends StatefulWidget {
+  final RegisterPasswordPageArguments arguments;
+
+  RegisterPasswordPage({this.arguments});
+
+  @override
+  _RegisterPasswordPageState createState() =>
+      _RegisterPasswordPageState(email: arguments.email);
+}
+
+class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   GlobalKey<ScaffoldState> _scaffoldKey;
-  TextEditingController _emailController;
-  String _emailError;
+  TextEditingController _passwordController;
+  String _passwordError;
+  String email;
+  bool _passwordVisibility;
+
+  _RegisterPasswordPageState({this.email});
 
   @override
   void initState() {
     super.initState();
     _scaffoldKey = GlobalKey<ScaffoldState>();
-    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _passwordVisibility = false;
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  _validateFields(RegisterEmailViewModel vm) {
+  _validateFields(RegisterPasswordViewModel vm) {
     bool validated = true;
-    var email = _emailController.text;
-    if (Validator.isEmpty(email)) {
-      setState(() => _emailError = 'EMAIL CAN\'T BE EMPTY');
+    var password = _passwordController.text;
+    if (Validator.isEmpty(password)) {
+      setState(() => _passwordError = 'PASSWORD CAN\'T BE EMPTY');
       validated = false;
     }
-    if (!Validator.isEmpty(email) && !Validator.isEmailCorrect(email)) {
-      setState(() => _emailError = 'EMAIL IS INCORRECT');
+    if (!Validator.isEmpty(password) &&
+        !Validator.isPasswordCorrect(password)) {
+      setState(() => _passwordError = 'PASSWORD IS INCORRECT');
       validated = false;
     }
 
     if (validated) {
-      _emailError = null;
-      Navigator.of(context)
-          .pushNamed(AppRoutes.register_password_page, arguments: RegisterPasswordPageArguments(email: _emailController.text));
+      _passwordError = null;
+      vm.register(email, password);
     }
   }
 
@@ -57,11 +73,32 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
     if (store.state.loginState.isDefault()) return;
   }
 
-  _onWillChange(RegisterEmailViewModel vm) {
+  _onWillChange(RegisterPasswordViewModel vm) {
+    if (vm.isDefault) return;
     vm.resetState();
   }
 
-  _onDidChange(RegisterEmailViewModel vm) {
+  _onDidChange(RegisterPasswordViewModel vm) {
+    if (vm.isDefault) return;
+    if(vm.error != null) {
+      String message;
+      if (vm.error is PlatformException) {
+        PlatformException pe = vm.error;
+        message = pe.message;
+      } else {
+        message = vm.error.toString();
+      }
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
+    if (vm.user == null) return;
+    vm.resetState();
+
+
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.main_page, (Route<dynamic> route) => false,
+    arguments: vm.user);
   }
 
   @override
@@ -70,12 +107,12 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
       key: _scaffoldKey,
       body: StoreConnector(
         distinct: true,
-        converter: RegisterEmailViewModel.fromStore,
+        converter: RegisterPasswordViewModel.fromStore,
         onInit: _onInit,
         onDispose: _onDispose,
         onWillChange: _onWillChange,
         onDidChange: _onDidChange,
-        builder: (BuildContext context, RegisterEmailViewModel vm) {
+        builder: (BuildContext context, RegisterPasswordViewModel vm) {
           return Container(
             width: MediaQuery.of(context).size.width,
             color: Colors.white,
@@ -99,9 +136,11 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
                                   Navigator.of(context).pop();
                                 },
                               ),
-                              Padding(padding: EdgeInsets.only(top: 40),),
+                              Padding(
+                                padding: EdgeInsets.only(top: 40),
+                              ),
                               Text(
-                                "Enter email to continue.",
+                                "Enter password to continue",
                                 style: TextStyle(
                                     fontSize: 18, color: Color(0xff979797)),
                               ),
@@ -109,12 +148,26 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
                                 padding: EdgeInsets.only(top: 56),
                               ),
                               TextField(
-                                controller: _emailController,
+                                controller: _passwordController,
                                 maxLines: 1,
                                 style: TextStyle(fontSize: 18),
+                                obscureText: !_passwordVisibility,
                                 decoration: InputDecoration(
+                                  suffix: GestureDetector(
+                                    child: Icon(
+                                      _passwordVisibility
+                                          ? Icons.remove_red_eye
+                                          : Icons.panorama_fish_eye,
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        _passwordVisibility =
+                                            !_passwordVisibility;
+                                      });
+                                    },
+                                  ),
                                   alignLabelWithHint: true,
-                                  labelText: "Email",
+                                  labelText: "Password",
                                   labelStyle: TextStyle(
                                     color: Color(0xffd8d8d8),
                                     fontSize: 18,
@@ -129,7 +182,7 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
                                       color: Color(0xff53cde4),
                                     ),
                                   ),
-                                  errorText: _emailError,
+                                  errorText: _passwordError,
                                 ),
                               ),
                               Padding(
@@ -140,7 +193,7 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
                                   _validateFields(vm);
                                 },
                                 child: Text(
-                                  "CONTINUE",
+                                  "REGISTER",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 21,

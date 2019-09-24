@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mc_login/data/models/User.dart';
 import 'package:mc_login/redux/base/app_state.dart';
 import 'package:mc_login/redux/login/login_actions.dart';
 import 'package:redux/redux.dart';
@@ -9,7 +9,7 @@ import 'package:redux/redux.dart';
 @immutable
 class LoginViewModel extends Equatable {
   final bool loading;
-  final FirebaseUser user;
+  final User user;
   final Object error;
   final Function(String, String) login;
   final bool isDefault;
