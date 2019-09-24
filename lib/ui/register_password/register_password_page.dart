@@ -74,13 +74,14 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   }
 
   _onWillChange(RegisterPasswordViewModel vm) {
-    if (vm.isDefault) return;
-    vm.resetState();
+//    if (vm.isDefault) return;
+//    if (vm.user == null) return;
+//    if (vm.error != null) return;
+//    vm.resetState();
   }
 
   _onDidChange(RegisterPasswordViewModel vm) {
-    if (vm.isDefault) return;
-    if(vm.error != null) {
+    if (vm.error != null) {
       String message;
       if (vm.error is PlatformException) {
         PlatformException pe = vm.error;
@@ -92,13 +93,13 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
         SnackBar(content: Text(message)),
       );
     }
+    if (vm.isDefault) return;
     if (vm.user == null) return;
     vm.resetState();
 
-
     Navigator.of(context).pushNamedAndRemoveUntil(
         AppRoutes.main_page, (Route<dynamic> route) => false,
-    arguments: vm.user);
+        arguments: vm.user);
   }
 
   @override
@@ -106,7 +107,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
     return Scaffold(
       key: _scaffoldKey,
       body: StoreConnector(
-        distinct: true,
+        distinct: false,
         converter: RegisterPasswordViewModel.fromStore,
         onInit: _onInit,
         onDispose: _onDispose,
@@ -188,20 +189,25 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: 87),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  _validateFields(vm);
-                                },
-                                child: Text(
-                                  "REGISTER",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff53cde4),
-                                  ),
-                                ),
-                              ),
+                              vm.isLoading
+                                  ? CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.blue),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        _validateFields(vm);
+                                      },
+                                      child: Text(
+                                        "REGISTER",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xff53cde4),
+                                        ),
+                                      ),
+                                    ),
                               Padding(
                                 padding: EdgeInsets.only(top: 30),
                               )

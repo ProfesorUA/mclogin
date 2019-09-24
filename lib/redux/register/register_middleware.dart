@@ -24,7 +24,7 @@ class RegisterMiddleware {
     authRepo.register(action.email, action.password).then((user) {
       store.dispatch(ShowResult(user));
     }).catchError((error) {
-      store.dispatch(ShowError(error));
+      store.dispatch(RegShowError(error));
     });
   }
 }

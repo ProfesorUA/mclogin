@@ -5,7 +5,7 @@ import 'package:redux/redux.dart';
 
 Reducer<RegisterState> registerReducer = combineReducers<RegisterState>([
   TypedReducer<RegisterState, Register>(_register),
-  TypedReducer<RegisterState, ShowError>(_showError),
+  TypedReducer<RegisterState, RegShowError>(_showError),
   TypedReducer<RegisterState, ShowResult>(_showResult),
   TypedReducer<RegisterState, ResetState>(_resetState),
 ]);
@@ -14,10 +14,10 @@ RegisterState _register(RegisterState state, Register action) {
   return state.copyWith(isLoading: true, error: null);
 }
 
-RegisterState _showError(RegisterState state, ShowError action) {
+RegisterState _showError(RegisterState state, RegShowError action) {
   return state.copyWith(
       isLoading: false,
-      error: action.error
+      error: action.error,
   );
 }
 

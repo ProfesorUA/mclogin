@@ -5,3 +5,8 @@ class Register {
   Register({this.email, this.password});
 }
 
+class RegShowError {
+  final Object error;
+
+  RegShowError(this.error);
+}

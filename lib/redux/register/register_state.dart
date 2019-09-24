@@ -33,8 +33,8 @@ class RegisterState extends Equatable {
     Object error,
   }) {
     return RegisterState(
-      isLoading: isLoading,
-      user: user,
+      isLoading: isLoading ?? this.isLoading,
+      user: user ?? this.user,
       error: error,
     );
   }

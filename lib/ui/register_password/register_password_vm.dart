@@ -10,6 +10,7 @@ import 'package:redux/redux.dart';
 @immutable
 class RegisterPasswordViewModel extends Equatable {
   final bool isDefault;
+  final bool isLoading;
   final User user;
   final Object error;
   final Function() resetState;
@@ -17,6 +18,7 @@ class RegisterPasswordViewModel extends Equatable {
 
   RegisterPasswordViewModel({
     this.isDefault,
+    this.isLoading,
     this.user,
     this.error,
     this.resetState,
@@ -29,6 +31,7 @@ class RegisterPasswordViewModel extends Equatable {
   static RegisterPasswordViewModel fromStore(Store<AppState> store) {
     return RegisterPasswordViewModel(
       isDefault: store.state.registerState.isDefault(),
+      isLoading: store.state.registerState.isLoading,
       user: store.state.registerState.user,
       error: store.state.registerState.error,
       resetState: () => store.dispatch(ResetState()),
