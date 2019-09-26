@@ -16,8 +16,8 @@ RegisterState _register(RegisterState state, Register action) {
 
 RegisterState _showError(RegisterState state, RegShowError action) {
   return state.copyWith(
-      isLoading: false,
-      error: action.error,
+    isLoading: false,
+    error: action.error,
   );
 }
 

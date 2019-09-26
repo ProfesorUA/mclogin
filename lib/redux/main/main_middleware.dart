@@ -1,6 +1,5 @@
 import 'package:mc_login/data/repo/auth_repo.dart';
 import 'package:mc_login/redux/base/app_state.dart';
-import 'package:mc_login/redux/login/login_actions.dart';
 import 'package:mc_login/redux/main/main_actions.dart';
 import 'package:redux/redux.dart';
 
@@ -16,10 +15,10 @@ class MainMiddleware {
   }
 
   Future _logout(
-      Store<AppState> store,
-      Logout action,
-      NextDispatcher next,
-      ) async {
+    Store<AppState> store,
+    Logout action,
+    NextDispatcher next,
+  ) async {
     next(action);
     await authRepo.logout();
     store.dispatch(CloseScreen());

@@ -13,10 +13,10 @@ class MainState extends Equatable {
     this.shouldCloseScreen,
     this.error,
   }) : super([
-    isLoading,
-    shouldCloseScreen,
-    error,
-  ]);
+          isLoading,
+          shouldCloseScreen,
+          error,
+        ]);
 
   factory MainState.initial() {
     return MainState(

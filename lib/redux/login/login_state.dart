@@ -13,10 +13,10 @@ class LoginState extends Equatable {
     this.user,
     this.error,
   }) : super([
-    isLoading,
-    user,
-    error,
-  ]);
+          isLoading,
+          user,
+          error,
+        ]);
 
   factory LoginState.initial() {
     return LoginState(

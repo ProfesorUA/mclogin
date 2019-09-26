@@ -39,10 +39,12 @@ class McLoginAppState extends State<McLoginApp> {
       child: MaterialApp(
         home: widget.user != null ? MainPage(widget.user) : LoginPage(),
         onGenerateRoute: (RouteSettings settings) {
-          final routes = <String, WidgetBuilder> {
+          final routes = <String, WidgetBuilder>{
             AppRoutes.login_page: (context) => LoginPage(),
             AppRoutes.register_page: (context) => RegisterEmailPage(),
-            AppRoutes.register_password_page: (context) => RegisterPasswordPage(arguments: settings.arguments,),
+            AppRoutes.register_password_page: (context) => RegisterPasswordPage(
+                  arguments: settings.arguments,
+                ),
             AppRoutes.main_page: (context) => MainPage(settings.arguments),
           };
 

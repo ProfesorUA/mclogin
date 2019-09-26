@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mc_login/redux/base/app_state.dart';
@@ -15,19 +14,19 @@ class MainViewModel extends Equatable {
   final Function() logout;
   final Object error;
 
-  MainViewModel({
-    this.isDefault,
-    this.resetState,
-    this.isLoading,
-    this.shouldCloseScreen,
-    this.logout,
-    this.error
-  }) : super([
-    isDefault,
-    isLoading,
-    shouldCloseScreen,
-    error,
-  ]);
+  MainViewModel(
+      {this.isDefault,
+      this.resetState,
+      this.isLoading,
+      this.shouldCloseScreen,
+      this.logout,
+      this.error})
+      : super([
+          isDefault,
+          isLoading,
+          shouldCloseScreen,
+          error,
+        ]);
 
   static MainViewModel fromStore(Store<AppState> store) {
     return MainViewModel(

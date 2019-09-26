@@ -14,10 +14,7 @@ LoginState _login(LoginState state, Login action) {
 }
 
 LoginState _showError(LoginState state, ShowError action) {
-  return state.copyWith(
-    isLoading: false,
-    error: action.error
-  );
+  return state.copyWith(isLoading: false, error: action.error);
 }
 
 LoginState _showResult(LoginState state, ShowResult action) {

@@ -15,10 +15,10 @@ class LoginMiddleware {
   }
 
   Future _login(
-      Store<AppState> store,
-      Login action,
-      NextDispatcher next,
-      ) async {
+    Store<AppState> store,
+    Login action,
+    NextDispatcher next,
+  ) async {
     next(action);
     authRepo.login(action.email, action.password).then((user) {
       store.dispatch(ShowResult(user));

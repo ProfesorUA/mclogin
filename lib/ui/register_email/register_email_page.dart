@@ -44,8 +44,9 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
 
     if (validated) {
       _emailError = null;
-      Navigator.of(context)
-          .pushNamed(AppRoutes.register_password_page, arguments: RegisterPasswordPageArguments(email: _emailController.text));
+      Navigator.of(context).pushNamed(AppRoutes.register_password_page,
+          arguments:
+              RegisterPasswordPageArguments(email: _emailController.text));
     }
   }
 
@@ -61,8 +62,7 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
     vm.resetState();
   }
 
-  _onDidChange(RegisterEmailViewModel vm) {
-  }
+  _onDidChange(RegisterEmailViewModel vm) {}
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,9 @@ class _RegisterEmailPageState extends State<RegisterEmailPage> {
                                   Navigator.of(context).pop();
                                 },
                               ),
-                              Padding(padding: EdgeInsets.only(top: 40),),
+                              Padding(
+                                padding: EdgeInsets.only(top: 40),
+                              ),
                               Text(
                                 "Enter email to continue.",
                                 style: TextStyle(

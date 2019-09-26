@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mc_login/data/models/User.dart';
 import 'package:meta/meta.dart';
 
@@ -14,10 +13,10 @@ class RegisterState extends Equatable {
     this.user,
     this.error,
   }) : super([
-    isLoading,
-    user,
-    error,
-  ]);
+          isLoading,
+          user,
+          error,
+        ]);
 
   factory RegisterState.initial() {
     return RegisterState(

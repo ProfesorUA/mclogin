@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mc_login/data/models/User.dart';
@@ -23,11 +22,11 @@ class LoginViewModel extends Equatable {
     this.isDefault,
     this.resetState,
   }) : super([
-    loading,
-    user,
-    error,
-    isDefault,
-  ]);
+          loading,
+          user,
+          error,
+          isDefault,
+        ]);
 
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(

@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mc_login/data/models/User.dart';
@@ -24,9 +23,9 @@ class RegisterPasswordViewModel extends Equatable {
     this.resetState,
     this.register,
   }) : super([
-    isDefault,
-    user,
-  ]);
+          isDefault,
+          user,
+        ]);
 
   static RegisterPasswordViewModel fromStore(Store<AppState> store) {
     return RegisterPasswordViewModel(
@@ -35,7 +34,8 @@ class RegisterPasswordViewModel extends Equatable {
       user: store.state.registerState.user,
       error: store.state.registerState.error,
       resetState: () => store.dispatch(ResetState()),
-      register: (email, password) => store.dispatch(Register(email: email, password: password)),
+      register: (email, password) =>
+          store.dispatch(Register(email: email, password: password)),
     );
   }
 }

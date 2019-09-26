@@ -16,10 +16,10 @@ class RegisterMiddleware {
   }
 
   Future _register(
-      Store<AppState> store,
-      Register action,
-      NextDispatcher next,
-      ) async {
+    Store<AppState> store,
+    Register action,
+    NextDispatcher next,
+  ) async {
     next(action);
     authRepo.register(action.email, action.password).then((user) {
       store.dispatch(ShowResult(user));

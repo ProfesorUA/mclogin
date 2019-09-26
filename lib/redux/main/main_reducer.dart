@@ -15,10 +15,7 @@ MainState _logout(MainState state, Logout action) {
 }
 
 MainState _showError(MainState state, ShowError action) {
-  return state.copyWith(
-      isLoading: false,
-      error: action.error
-  );
+  return state.copyWith(isLoading: false, error: action.error);
 }
 
 MainState _closeScreen(MainState state, CloseScreen action) {
